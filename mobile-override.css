@@ -57,6 +57,13 @@ div[class*="w-[72px]"] {
     padding-top: var(--safe-top, 0px);
   }
 
+  /* Override forced desktop 100px / 173px inline padding-left on top bar breadcrumb container (S9a) */
+  div.flex.items-center.gap-1.min-w-0[style*="padding"],
+  div[style*="padding-left"][style*="var(--sidebar-width)"],
+  div[style*="paddingLeft"][style*="var(--sidebar-width)"] {
+    padding-left: 8px !important;
+  }
+
   /* Expanded Touch Targets for Action Buttons */
   header button,
   div[class*="items-center"] > button,
