@@ -49,8 +49,8 @@ Key rules implemented:
 * **Input Textarea Font Size**: Set to `16px` on mobile screens to prevent iOS Safari auto-zoom.
 * **Touch Target Expansion**: Header toggle buttons (`button[aria-label*="Toggle"]`, `button[class*="size-icon"]`) scaled to a minimum touch footprint of 38px × 38px.
 * **Horizontal Breadcrumb Scrolling**: `div[class*="breadcrumb"]` styled with `overflow-x: auto` and touch momentum scrolling (`-webkit-overflow-scrolling: touch`).
-* **Full Horizontal Width Sidebars**: Navigation drawers (`.bg-sidebar.z-50`), split-pane parent wrappers (`div:has(> div[role="navigation"])`), side panels, and split views automatically open to fill 100% of horizontal space (`100vw`) on mobile viewports.
-* **Stacking Context Isolation (`z-index: 99999`)**: Navigation sidebar parent and child elements are hoisted to root stacking context with `isolation: isolate`, automatically hiding input prompt boxes and floating chat popups while the sidebar is active to prevent elements bleeding through.
+* **State-Conditional Sidebar Overlay**: Full-viewport sidebar overlay rules (`100vw` × `100dvh`) are strictly applied only when the sidebar is explicitly OPEN (`div.flex[style*="visibility: visible"]:not([style*="width: 0px"])`). When closed, the workspace and input prompt box retain full visibility and interactivity.
+* **Dropdown Modals & Filter Menus (`z-index: 100005`)**: Project filter menus (`div[class*="origin-top-left"]`), Radix popovers, and dropdown dialogs are assigned `z-index: 100005 !important` so they float above the sidebar when clicked.
 * **Touch Scroll vs Drag-and-Drop Fix**: Enforces `touch-action: pan-y !important` and `-webkit-overflow-scrolling: touch` on project cards (`[data-workspace-card]`), preventing vertical touch swipes from initiating accidental project drag reordering.
 
 ### 3. Viewport Declaration (`index.html`)
