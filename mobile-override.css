@@ -292,4 +292,17 @@ div[class*="w-[72px]"] {
     z-index: 99995 !important;
     position: relative !important;
   }
+
+  /* 9. Mutual Exclusion for Mobile Sidebar Toggle Buttons */
+  /* When Left Sidebar is OPEN, hide the Right Sidebar Toggle Button */
+  body:has(div:has(> div[role="navigation"]):not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[aria-label*="Auxiliary"],
+  body:has(div:has(> div[role="navigation"]):not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[data-testid="toggle-aux-sidebar"] {
+    display: none !important;
+  }
+
+  /* When Right Sidebar is OPEN, hide the Left Sidebar Toggle Button */
+  body:has(div.relative.flex-1.flex.min-w-0.h-full:not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[data-testid="sidebar-toggle"],
+  body:has(div.relative.flex-1.flex.min-w-0.h-full:not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[aria-label*="Toggle Sidebar"] {
+    display: none !important;
+  }
 }

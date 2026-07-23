@@ -49,7 +49,7 @@ Key rules implemented:
 * **Input Textarea Font Size**: Set to `16px` on mobile screens to prevent iOS Safari auto-zoom.
 * **Touch Target Expansion**: Header toggle buttons (`button[aria-label*="Toggle"]`, `button[class*="size-icon"]`) scaled to a minimum touch footprint of 38px × 38px.
 * **Horizontal Breadcrumb Scrolling**: `div[class*="breadcrumb"]` styled with `overflow-x: auto` and touch momentum scrolling (`-webkit-overflow-scrolling: touch`).
-* **State-Conditional Left & Right Sidebar Overlays**: Both the left navigation sidebar (`div[role="navigation"]`) and the right auxiliary pane (`div.relative.flex-1.flex.min-w-0.h-full`) expand to fill 100% of horizontal space (`100vw` × `100dvh`) as full-viewport overlays when explicitly OPEN. When closed, workspace interactivity and input prompt visibility are 100% preserved.
+* **Mutual Exclusion for Sidebar Toggles**: When either the left or right sidebar is open on mobile, CSS `:has()` rules automatically hide the opposite toggle button (`display: none !important`), preventing UI clutter and button overlap.
 * **Dropdown Modals & Filter Menus (`z-index: 100005`)**: Project filter menus (`div[class*="origin-top-left"]`), Radix popovers, and dropdown dialogs are assigned `z-index: 100005 !important` so they float above the sidebars when clicked.
 * **Touch Scroll vs Drag-and-Drop Fix**: Disarms tap-hold project card drag reordering on mobile touchscreens via capture-phase pointer interceptors in `index.html` and `touch-action: pan-y !important` rules, allowing smooth vertical list scrolling.
 
