@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3333;
 
-let cachedConfig = { port: null, csrfToken: null, useHttps: false, lastUpdated: 0 };
+let cachedConfig = { port: null, csrfToken: null, useHttps: true, lastUpdated: 0 };
 
 function discoverLanguageServerConfig() {
   const now = Date.now();
@@ -202,7 +202,7 @@ const server = http.createServer((req, res) => {
 
       proxyReq.on('error', (err) => {
         // If protocol mismatch error occurs, switch protocol and retry once
-        const isSslErr = err.code === 'EPROTO' || (err.message && (err.message.includes('wrong version number') || err.message.includes('SSL routines') || err.message.includes('packet length')));
+        const isSslErr = err.code === 'EPROTO' || err.code === 'ECONNRESET' || (err.message && (err.message.includes('wrong version number') || err.message.includes('SSL routines') || err.message.includes('packet length') || err.message.includes('socket hang up') || err.message.includes('ECONNRESET')));
         if (isSslErr && !req.retriedProtocol) {
           req.retriedProtocol = true;
           cachedConfig.useHttps = !useHttps;
@@ -222,7 +222,7 @@ const server = http.createServer((req, res) => {
       req.pipe(proxyReq);
     };
 
-    sendProxyRequest(cachedConfig.useHttps || false);
+    sendProxyRequest(cachedConfig.useHttps !== false);
     return;
   }
 
