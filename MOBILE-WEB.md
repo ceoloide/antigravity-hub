@@ -49,7 +49,7 @@ Key rules implemented:
 * **Input Textarea Font Size**: Set to `16px` on mobile screens to prevent iOS Safari auto-zoom.
 * **Touch Target Expansion**: Header toggle buttons (`button[aria-label*="Toggle"]`, `button[class*="size-icon"]`) scaled to a minimum touch footprint of 38px × 38px.
 * **Horizontal Breadcrumb Scrolling**: `div[class*="breadcrumb"]` styled with `overflow-x: auto` and touch momentum scrolling (`-webkit-overflow-scrolling: touch`).
-* **Full Horizontal Width Sidebars**: Navigation drawers (`.bg-sidebar.z-50`), side panels, and split views automatically open to fill 100% of horizontal space (`100vw`) on mobile viewports, hiding column resizer handles that are difficult to drag on touchscreens.
+* **Full Horizontal Width Sidebars**: Navigation drawers (`.bg-sidebar.z-50`), split-pane parent wrappers (`div:has(> div[role="navigation"])`), side panels, and split views automatically open to fill 100% of horizontal space (`100vw`) on mobile viewports, hiding workspace content while the sidebar is open and disabling column resizer handles.
 
 ### 3. Viewport Declaration (`index.html`)
 Updated the viewport tag in `index.html`:
