@@ -110,30 +110,17 @@ div[class*="w-[72px]"] {
     z-index: 40 !important;
   }
 
-  /* Restore native touch tap cursor placement, focus & text selection on input box */
+  /* Restore native text selection, cursor placement & touch interaction on input box */
   #antigravity\.agentSidePanelInputBox,
   #antigravity\.agentSidePanelInputBox *,
-  div[contenteditable="true"],
-  div[contenteditable="true"] *,
-  div[role="textbox"],
-  div[role="textbox"] *,
   textarea,
-  input {
+  input,
+  [contenteditable="true"],
+  [contenteditable="true"] * {
     user-select: text !important;
     -webkit-user-select: text !important;
-    -webkit-user-modify: read-write-plaintext-only !important;
-    touch-action: auto !important;
+    touch-action: manipulation !important;
     pointer-events: auto !important;
-    -webkit-touch-callout: default !important;
-  }
-
-  /* Ensure ContentEditable box sits above placeholder and responds to touch taps */
-  div[contenteditable="true"],
-  div[role="textbox"] {
-    position: relative !important;
-    z-index: 1 !important;
-    cursor: text !important;
-    min-height: 38px !important;
   }
 
   #antigravity\.agentSidePanelInputBox textarea,
