@@ -100,7 +100,7 @@ div[class*="w-[72px]"] {
     display: none;
   }
 
-  /* 4. Bottom Prompt Input Box Container Fixes */
+  /* 4. Bottom Prompt Input Box Container & Text Selection Fixes */
   #antigravity\.agentSidePanelInputBox,
   .sticky.bottom-0,
   div[class*="sticky"][class*="bottom-0"] {
@@ -110,12 +110,35 @@ div[class*="w-[72px]"] {
     z-index: 40 !important;
   }
 
+  /* Restore native text selection, cursor placement & touch interaction on input box */
+  #antigravity\.agentSidePanelInputBox,
+  #antigravity\.agentSidePanelInputBox *,
+  textarea,
+  input,
+  [contenteditable="true"],
+  [contenteditable="true"] * {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    touch-action: manipulation !important;
+    pointer-events: auto !important;
+  }
+
   #antigravity\.agentSidePanelInputBox textarea,
   div[class*="user-input"] textarea,
   textarea.resize-none {
     max-height: 140px !important;
     font-size: 16px !important; /* Prevents iOS Safari auto-zoom */
     line-height: 1.4 !important;
+  }
+
+  /* Enable text selection across conversation messages and code snippets */
+  div[class*="message"],
+  div[class*="prose"],
+  div[class*="markdown"],
+  div[class*="conversation"],
+  code, pre {
+    user-select: text !important;
+    -webkit-user-select: text !important;
   }
 
   /* 5. Mobile Navigation Sidebar — Apply full-width overlay (100vw) ONLY when explicitly OPEN */
