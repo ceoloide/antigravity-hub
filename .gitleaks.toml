@@ -3,9 +3,10 @@
 title = "Gitleaks config"
 
 [allowlist]
-description = "Allowlist for non-secret static tokens and public SVG inline definitions"
+description = "Allowlist for public client keys, non-secret static tokens, and public SVG inline definitions"
 regexes = [
   '''uuid-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}''',
+  '''AIzaSyCNwssj18yx5z0YgvDoBCiewnY_xSXyaWk''',
 ]
 paths = [
   '''icons_cache/.*''',
