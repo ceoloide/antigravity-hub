@@ -119,8 +119,8 @@ div[class*="w-[72px]"] {
   }
 
   /* 5. Mobile Navigation Sidebar — Apply full-width overlay ONLY when explicitly OPEN */
-  div.flex[style*="visibility: visible"]:not([style*="width: 0px"]):has(> div[role="navigation"]),
-  div.flex[style*="visibility: visible"]:not([style*="width: 0px"]):has(> nav[role="navigation"]) {
+  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> div[role="navigation"]),
+  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> nav[role="navigation"]) {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -134,8 +134,8 @@ div[class*="w-[72px]"] {
   }
 
   /* Inner sidebar fills 100vw when parent is open */
-  div.flex[style*="visibility: visible"]:not([style*="width: 0px"]) > div[role="navigation"],
-  div.flex[style*="visibility: visible"]:not([style*="width: 0px"]) > nav[role="navigation"],
+  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]) > div[role="navigation"],
+  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]) > nav[role="navigation"],
   .bg-sidebar.z-50 {
     position: fixed !important;
     top: 0 !important;
