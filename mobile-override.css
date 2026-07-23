@@ -27,6 +27,16 @@
   }
 }
 
+/* Completely Hide Back & Forward Navigation Arrow Icons */
+button[aria-label="Go Back"],
+button[aria-label="Go Forward"],
+button[aria-label*="Go Back"],
+button[aria-label*="Go Forward"],
+button[data-tooltip-id*="go-back"],
+button[data-tooltip-id*="go-forward"] {
+  display: none !important;
+}
+
 /* Mobile Overrides (max-width: 768px) */
 @media (max-width: 768px) {
   /* 2. Top Header & Safe-Area Padding */
