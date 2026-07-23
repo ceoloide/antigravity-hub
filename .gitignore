@@ -1,0 +1,15 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System & IDE files
+.DS_Store
+*.swp
+*.bak
+.env
+.vscode/
+
+# Temporary files
+raw_index.html

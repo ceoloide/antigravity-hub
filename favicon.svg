@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Rounded corner squircle container matching screenshot -->
+  <rect x="5" y="5" width="90" height="90" rx="26" fill="#ffffff" />
+  
+  <!-- Linear Gradient representing the official rainbow curve -->
+  <defs>
+    <linearGradient id="rainbow-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f25c27" />
+      <stop offset="25%" stop-color="#eab308" />
+      <stop offset="50%" stop-color="#22c55e" />
+      <stop offset="75%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+  
+  <!-- The Arch Shape -->
+  <path d="M 24 73 C 20 70, 22 61, 28 49 C 35 34, 43 23, 50 23 C 57 23, 65 34, 72 49 C 78 61, 80 70, 76 73 C 72 76, 68 70, 65 64 C 61 54, 56 50, 50 50 C 44 50, 39 54, 35 64 C 32 70, 28 76, 24 73 Z" fill="url(#rainbow-grad)" />
+</svg>

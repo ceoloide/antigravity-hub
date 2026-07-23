@@ -1,0 +1,23 @@
+{
+  "name": "antigravity-hub",
+  "version": "2.3.1",
+  "description": "Extracted React Web App and Connect RPC Proxy Server for Google Antigravity Desktop 2.3.1",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "keywords": [
+    "antigravity",
+    "react",
+    "connect-rpc",
+    "language-server",
+    "proxy"
+  ],
+  "author": "ceoloide",
+  "license": "MIT"
+}
