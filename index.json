@@ -1,0 +1,7 @@
+{
+  "name": "antigravity-hub",
+  "version": "2.3.1",
+  "description": "Extracted React Web App and Connect RPC Proxy Server for Google Antigravity Desktop 2.3.1",
+  "customCss": "mobile-override.css",
+  "lastUpdated": "2026-07-23"
+}

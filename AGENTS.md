@@ -25,6 +25,9 @@ This document provides explicit guidelines, rules, and operational boundaries fo
 ### 4. No Destruction of Offline Assets
 - Do not delete or purge `icons_cache/` or offline symbol icon fallback logic. Offline tailscale access relies on local asset resolution.
 
+### 5. Git Commit & Continuous Integration Rule
+- **Commit changes as you go**. Whenever a feature, fix, or optimization step is verified successfully via the verification pipeline, stage and commit the changes immediately before proceeding to subsequent tasks or declaring completion.
+
 ---
 
 ## 🛠️ Verification & Testing Commands

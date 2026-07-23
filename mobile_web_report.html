@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity Hub - Mobile Web GUI & CSS Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --primary: #818cf8;
+      --primary-light: rgba(129, 140, 248, 0.1);
+      --success: #34d399;
+      --success-bg: rgba(52, 211, 153, 0.1);
+      --warning: #fbbf24;
+      --warning-bg: rgba(251, 191, 36, 0.1);
+      --code-bg: #1a2234;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f9fafb;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --text-main: #111827;
+        --text-muted: #4b5563;
+        --primary: #4f46e5;
+        --primary-light: rgba(79, 70, 229, 0.08);
+        --success: #059669;
+        --success-bg: rgba(5, 150, 105, 0.1);
+        --warning: #d97706;
+        --warning-bg: rgba(217, 119, 6, 0.1);
+        --code-bg: #f3f4f6;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      transition: opacity 0.2s ease;
+    }
+    .back-btn:hover {
+      opacity: 0.8;
+    }
+    .back-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .badge-primary {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+    .badge-success {
+      background-color: var(--success-bg);
+      color: var(--success);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .meta-info {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      padding-top: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      margin: 2rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    code {
+      font-family: monospace;
+      background: var(--code-bg);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+    }
+
+    pre {
+      background: var(--code-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin: 0.75rem 0;
+      border: 1px solid var(--card-border);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 2rem;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 0.85rem 1.2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../../reports.html" class="back-btn">
+    <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to Reports List
+  </a>
+
+  <header class="header-card">
+    <span class="badge badge-primary">UI/UX Audit & Architecture</span>
+    <h1>Antigravity Hub — Mobile Web Optimization</h1>
+    <p class="subtitle">GUI & CSS Analysis and Modular Override Layer for Desktop React Web App v2.3.1</p>
+    <div class="meta-info">
+      <span>Author: <strong>Antigravity Agent</strong></span>
+      <span>Target Version: <strong>2.3.1</strong></span>
+      <span>Date: <span id="report-date-display" data-utc="2026-07-23T12:58:00Z">Loading date...</span></span>
+    </div>
+  </header>
+
+  <h2 class="section-title">🔍 Root Cause Diagnostics</h2>
+  <div class="grid-layout">
+    <div class="card">
+      <h3 class="card-title">1. Bottom Input Box Clipping</h3>
+      <p>Mobile browsers (iOS Safari, Android Chrome) calculate <code>100vh</code> based on the full screen height including address bars. When bars are visible, <code>sticky.bottom-0</code> input containers get submerged under browser UI.</p>
+    </div>
+    <div class="card">
+      <h3 class="card-title">2. Top Header & Notch Clipping</h3>
+      <p>Sticky header elements and breadcrumb bars lacked <code>env(safe-area-inset-top)</code> support. On modern mobile screens with notches or camera cutouts, controls collide with status bars.</p>
+    </div>
+    <div class="card">
+      <h3 class="card-title">3. Touch Target & Accessibility</h3>
+      <p>Desktop UI buttons for sidebar toggles and window collapse icons used 28px/32px dimensions, which fall below mobile touch guidelines (min 38px–44px).</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">🏗️ Architectural Strategy: Modular Override</h2>
+  <div class="card" style="margin-bottom: 2rem;">
+    <p>To avoid manual CSS merging whenever upstream Electron app updates are compiled into <code>main.js</code> or <code>compiled_tailwind.css</code>:</p>
+    <ul>
+      <li><strong>Zero modifications to core bundles:</strong> <code>compiled_tailwind.css</code> and <code>main.js</code> remain untouched.</li>
+      <li><strong>Standalone CSS File:</strong> Created <code>mobile-override.css</code> linked in <code>index.html</code> directly after compiled styles.</li>
+      <li><strong>Version Manifest:</strong> Created <code>index.json</code> specifying version <code>2.3.1</code> and extension entry points.</li>
+    </ul>
+  </div>
+
+  <h2 class="section-title">🛠️ Implemented Fixes Overview</h2>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Issue</th>
+          <th>Implementation Fix</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Viewport Height</strong></td>
+          <td>100vh overflow on mobile browsers</td>
+          <td>Applied <code>@supports (height: 100dvh)</code> dynamic height rules in <code>mobile-override.css</code></td>
+          <td><span class="badge badge-success">Resolved</span></td>
+        </tr>
+        <tr>
+          <td><strong>Input Prompt Box</strong></td>
+          <td>Clipped at screen bottom</td>
+          <td>Added <code>padding-bottom: calc(env(safe-area-inset-bottom) + 8px)</code> & 16px textarea font size</td>
+          <td><span class="badge badge-success">Resolved</span></td>
+        </tr>
+        <tr>
+          <td><strong>Top Header & Toggles</strong></td>
+          <td>Overlap with mobile notch / status bar</td>
+          <td>Applied <code>env(safe-area-inset-top)</code> padding & scaled touch targets to 38px min</td>
+          <td><span class="badge badge-success">Resolved</span></td>
+        </tr>
+        <tr>
+          <td><strong>Breadcrumb Bar</strong></td>
+          <td>Truncated text without scroll</td>
+          <td>Enabled horizontal touch scrolling (<code>overflow-x: auto</code>)</td>
+          <td><span class="badge badge-success">Resolved</span></td>
+        </tr>
+        <tr>
+          <td><strong>App Versioning</strong></td>
+          <td>Unindexed extracted version</td>
+          <td>Created <code>index.json</code> documenting version <code>2.3.1</code></td>
+          <td><span class="badge badge-success">Documented</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">💻 Custom CSS Overrides Snippet</h2>
+  <pre><code>/* mobile-override.css (Antigravity Hub v2.3.1) */
+@supports (height: 100dvh) {
+  html, body, #root, .h-screen, .h-\[100vh\] {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+  }
+}
+
+@media (max-width: 768px) {
+  header, .sticky.top-0 {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  
+  #antigravity\.agentSidePanelInputBox, .sticky.bottom-0 {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px) !important;
+  }
+  
+  #antigravity\.agentSidePanelInputBox textarea {
+    font-size: 16px !important; /* Prevents iOS Safari auto-zoom */
+  }
+}</code></pre>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dateEl = document.getElementById("report-date-display");
+      if (dateEl) {
+        const utcStr = dateEl.getAttribute("data-utc");
+        if (utcStr) {
+          const dateObj = new Date(utcStr);
+          const formattedDate = dateObj.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          const formattedTime = dateObj.toLocaleTimeString(undefined, {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          dateEl.textContent = `${formattedDate} at ${formattedTime} (${localTz})`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

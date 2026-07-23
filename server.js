@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3333;
 
-let cachedConfig = { port: 45449, csrfToken: '82d78d3c-a359-4d23-82ff-7cb0db7fcbeb', lastUpdated: 0 };
+let cachedConfig = { port: null, csrfToken: null, useHttps: false, lastUpdated: 0 };
 
 function discoverLanguageServerConfig() {
   const now = Date.now();
@@ -47,7 +47,8 @@ function discoverLanguageServerConfig() {
   return cachedConfig;
 }
 
-// Configure HTTPS agent with TLS bypass and fresh connections per request
+// Agents for proxy requests
+const httpAgent = new http.Agent({ keepAlive: false });
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
   keepAlive: false
@@ -168,46 +169,60 @@ const server = http.createServer((req, res) => {
     const isStream = reqPath.includes('Stream') || reqPath.includes('Subscribe') || reqPath.includes('StreamAgentState');
     const lsConfig = discoverLanguageServerConfig();
     
-    const headers = {};
-    for (const [key, value] of Object.entries(req.headers)) {
-      const lowerKey = key.toLowerCase();
-      if (!['host', 'connection', 'transfer-encoding', 'accept-encoding'].includes(lowerKey)) {
-        headers[key] = value;
+    const sendProxyRequest = (useHttps) => {
+      const headers = {};
+      for (const [key, value] of Object.entries(req.headers)) {
+        const lowerKey = key.toLowerCase();
+        if (!['host', 'connection', 'transfer-encoding', 'accept-encoding'].includes(lowerKey)) {
+          headers[key] = value;
+        }
       }
-    }
-    
-    headers['host'] = `127.0.0.1:${lsConfig.port}`;
-    headers['origin'] = `https://127.0.0.1:${lsConfig.port}`;
-    headers['x-codeium-csrf-token'] = lsConfig.csrfToken;
+      
+      headers['host'] = `127.0.0.1:${lsConfig.port}`;
+      headers['origin'] = `${useHttps ? 'https' : 'http'}://127.0.0.1:${lsConfig.port}`;
+      headers['x-codeium-csrf-token'] = lsConfig.csrfToken;
 
-    const proxyReq = https.request({
-      hostname: '127.0.0.1',
-      port: lsConfig.port,
-      path: `${reqPath}${parsedUrl.search}`,
-      method: req.method,
-      headers: headers,
-      agent: httpsAgent
-    }, (proxyRes) => {
-      if (isStream) {
-        res.setHeader('Cache-Control', 'no-cache, no-transform');
-        res.setHeader('Connection', 'keep-alive');
-        res.setHeader('X-Accel-Buffering', 'no');
-      }
-      res.writeHead(proxyRes.statusCode, proxyRes.headers);
-      proxyRes.pipe(res);
-    });
+      const transport = useHttps ? https : http;
+      const proxyReq = transport.request({
+        hostname: '127.0.0.1',
+        port: lsConfig.port,
+        path: `${reqPath}${parsedUrl.search}`,
+        method: req.method,
+        headers: headers,
+        agent: useHttps ? httpsAgent : httpAgent
+      }, (proxyRes) => {
+        if (isStream) {
+          res.setHeader('Cache-Control', 'no-cache, no-transform');
+          res.setHeader('Connection', 'keep-alive');
+          res.setHeader('X-Accel-Buffering', 'no');
+        }
+        res.writeHead(proxyRes.statusCode, proxyRes.headers);
+        proxyRes.pipe(res);
+      });
 
-    proxyReq.on('error', (err) => {
-      if (!res.headersSent) {
-        console.error(`[Proxy Error ${reqPath}] (Port ${lsConfig.port})`, err.message);
-        // Force refresh config on connection error
-        cachedConfig.lastUpdated = 0;
-        res.writeHead(502, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Language server backend proxy error', message: err.message }));
-      }
-    });
+      proxyReq.on('error', (err) => {
+        // If protocol mismatch error occurs, switch protocol and retry once
+        const isSslErr = err.code === 'EPROTO' || (err.message && (err.message.includes('wrong version number') || err.message.includes('SSL routines') || err.message.includes('packet length')));
+        if (isSslErr && !req.retriedProtocol) {
+          req.retriedProtocol = true;
+          cachedConfig.useHttps = !useHttps;
+          sendProxyRequest(!useHttps);
+          return;
+        }
 
-    req.pipe(proxyReq);
+        if (!res.headersSent) {
+          console.error(`[Proxy Error ${reqPath}] (Port ${lsConfig.port})`, err.message);
+          // Force refresh config on connection error
+          cachedConfig.lastUpdated = 0;
+          res.writeHead(502, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Language server backend proxy error', message: err.message }));
+        }
+      });
+
+      req.pipe(proxyReq);
+    };
+
+    sendProxyRequest(cachedConfig.useHttps || false);
     return;
   }
 

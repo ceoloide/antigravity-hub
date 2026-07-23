@@ -1,0 +1,100 @@
+/* Antigravity Hub - Mobile Web CSS Overrides */
+/* Extracted React Web App Version 2.3.1 Mobile Compatibility Layer */
+/* Designed for non-invasive overriding so future Electron React bundle updates work without merging */
+
+/* 1. Dynamic Viewport Height & Safe Area Insets */
+:root {
+  --mobile-vh: 100dvh;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Force body and root app wrapper to use dynamic viewport height (100dvh) */
+@supports (height: 100dvh) {
+  html, body, #root {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+  
+  .h-screen,
+  .h-\[100vh\],
+  .min-h-screen,
+  .min-h-\[100vh\] {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+  }
+}
+
+/* 2. Top Header & Breadcrumb Bar Fixes */
+@media (max-width: 768px) {
+  /* Prevent top header from getting clipped under mobile notches / status bar */
+  header,
+  .sticky.top-0,
+  div[class*="z-10"][class*="top-0"] {
+    padding-top: var(--safe-top);
+  }
+
+  /* Expand touch targets for top bar action buttons (sidebar toggles, collapse buttons) */
+  header button,
+  div[class*="items-center"] > button,
+  button[aria-label*="Toggle"],
+  button[aria-label*="Close"],
+  button[aria-label*="Dismiss"],
+  button[class*="size-icon"],
+  button[class*="size-icon-sm"] {
+    min-width: 38px !important;
+    min-height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation;
+  }
+
+  /* Allow breadcrumb bar to scroll horizontally on small screens instead of truncating awkwardly */
+  div[class*="breadcrumb"],
+  .truncate {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  div[class*="breadcrumb"]::-webkit-scrollbar {
+    display: none; /* Safari/Chrome */
+  }
+
+  /* 3. Bottom Prompt Input Box Container Fixes */
+  /* Prevent bottom prompt box clipping under mobile browser toolbars & keyboard */
+  #antigravity\.agentSidePanelInputBox,
+  .sticky.bottom-0,
+  div[class*="sticky"][class*="bottom-0"] {
+    padding-bottom: calc(var(--safe-bottom) + 8px) !important;
+    margin-bottom: 0 !important;
+    background-color: var(--background, #0d0e11) !important;
+    z-index: 40 !important;
+  }
+
+  /* Textarea inside prompt box: adjust max-height for smaller screens and prevent iOS Safari auto-zoom */
+  #antigravity\.agentSidePanelInputBox textarea,
+  div[class*="user-input"] textarea,
+  textarea.resize-none {
+    max-height: 140px !important;
+    font-size: 16px !important; /* iOS Safari triggers auto-zoom when font-size < 16px */
+    line-height: 1.4 !important;
+  }
+
+  /* 4. Drawer & Sidebar Overlay Adjustments */
+  .bg-sidebar.z-50 {
+    padding-top: var(--safe-top) !important;
+    padding-bottom: var(--safe-bottom) !important;
+    max-width: 85vw !important;
+  }
+
+  /* 5. Responsive Grid & Smooth Touch Scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
