@@ -247,9 +247,8 @@ div[class*="w-[72px]"] {
   }
 
   /* 8. Mobile Right Sidebar (Auxiliary Pane) — Full-Width Overlay (100vw x 100dvh) */
-  /* Target the right split-pane wrapper when explicitly OPEN */
-  div.relative.flex-1.flex.min-w-0.h-full:not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]),
-  div:has(> div.relative.flex-1.flex.min-w-0.h-full):not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]) {
+  /* Target the right split-pane parent container when explicitly OPEN (has width > 0) */
+  div[style]:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> div.relative.flex-1.flex.min-w-0.h-full) {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -264,7 +263,7 @@ div[class*="w-[72px]"] {
   }
 
   /* Inner right sidebar content fills 100vw when open */
-  div.relative.flex-1.flex.min-w-0.h-full:not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]) {
+  div[style]:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]) > div.relative.flex-1.flex.min-w-0.h-full {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -295,14 +294,14 @@ div[class*="w-[72px]"] {
 
   /* 9. Mutual Exclusion for Mobile Sidebar Toggle Buttons */
   /* When Left Sidebar is OPEN, hide the Right Sidebar Toggle Button */
-  body:has(div:has(> div[role="navigation"]):not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[aria-label*="Auxiliary"],
-  body:has(div:has(> div[role="navigation"]):not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[data-testid="toggle-aux-sidebar"] {
+  body:has(div[style]:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> div[role="navigation"])) button[aria-label*="Auxiliary"],
+  body:has(div[style]:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> div[role="navigation"])) button[data-testid="toggle-aux-sidebar"] {
     display: none !important;
   }
 
   /* When Right Sidebar is OPEN, hide the Left Sidebar Toggle Button */
-  body:has(div.relative.flex-1.flex.min-w-0.h-full:not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[data-testid="sidebar-toggle"],
-  body:has(div.relative.flex-1.flex.min-w-0.h-full:not([style*="width: 0px"]):not([style*="visibility: hidden"]):not([style*="display: none"])) button[aria-label*="Toggle Sidebar"] {
+  body:has(div[style]:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> div.relative.flex-1.flex.min-w-0.h-full)) button[data-testid="sidebar-toggle"],
+  body:has(div[style]:not([style*="width: 0px"]):not([style*="width:0px"]):not([style*="visibility: hidden"]):not([style*="display: none"]):has(> div.relative.flex-1.flex.min-w-0.h-full)) button[aria-label*="Toggle Sidebar"] {
     display: none !important;
   }
 }
