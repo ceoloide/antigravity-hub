@@ -27,7 +27,7 @@
   }
 }
 
-/* Completely Hide Back & Forward Navigation Arrow Icons & Container (S8a) */
+/* Completely Hide Back & Forward Navigation Arrow Icons, Container & Left Titlebar Spacers */
 div.flex.items-center.gap-1.mx-2,
 div[class*="gap-1"][class*="mx-2"]:has(button),
 button[aria-label="Go Back"],
@@ -35,8 +35,17 @@ button[aria-label="Go Forward"],
 button[aria-label*="Go Back"],
 button[aria-label*="Go Forward"],
 button[data-tooltip-id*="go-back"],
-button[data-tooltip-id*="go-forward"] {
+button[data-tooltip-id*="go-forward"],
+div[class*="shrink-0"][style*="width: 88"],
+div[class*="shrink-0"][style*="width:88"],
+div[class*="shrink-0"][style*="width: 72"],
+div[class*="w-[72px]"] {
   display: none !important;
+  width: 0px !important;
+  min-width: 0px !important;
+  max-width: 0px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Mobile Overrides (max-width: 768px) */
