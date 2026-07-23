@@ -49,9 +49,9 @@ Key rules implemented:
 * **Input Textarea Font Size**: Set to `16px` on mobile screens to prevent iOS Safari auto-zoom.
 * **Touch Target Expansion**: Header toggle buttons (`button[aria-label*="Toggle"]`, `button[class*="size-icon"]`) scaled to a minimum touch footprint of 38px × 38px.
 * **Horizontal Breadcrumb Scrolling**: `div[class*="breadcrumb"]` styled with `overflow-x: auto` and touch momentum scrolling (`-webkit-overflow-scrolling: touch`).
-* **State-Conditional Sidebar Overlay**: Full-viewport sidebar overlay rules (`100vw` × `100dvh`) are strictly applied only when the sidebar is explicitly OPEN (`div.flex[style*="visibility: visible"]:not([style*="width: 0px"])`). When closed, the workspace and input prompt box retain full visibility and interactivity.
-* **Dropdown Modals & Filter Menus (`z-index: 100005`)**: Project filter menus (`div[class*="origin-top-left"]`), Radix popovers, and dropdown dialogs are assigned `z-index: 100005 !important` so they float above the sidebar when clicked.
-* **Touch Scroll vs Drag-and-Drop Fix**: Enforces `touch-action: pan-y !important` and `-webkit-overflow-scrolling: touch` on project cards (`[data-workspace-card]`), preventing vertical touch swipes from initiating accidental project drag reordering.
+* **State-Conditional Left & Right Sidebar Overlays**: Both the left navigation sidebar (`div[role="navigation"]`) and the right auxiliary pane (`div.relative.flex-1.flex.min-w-0.h-full`) expand to fill 100% of horizontal space (`100vw` × `100dvh`) as full-viewport overlays when explicitly OPEN. When closed, workspace interactivity and input prompt visibility are 100% preserved.
+* **Dropdown Modals & Filter Menus (`z-index: 100005`)**: Project filter menus (`div[class*="origin-top-left"]`), Radix popovers, and dropdown dialogs are assigned `z-index: 100005 !important` so they float above the sidebars when clicked.
+* **Touch Scroll vs Drag-and-Drop Fix**: Disarms tap-hold project card drag reordering on mobile touchscreens via capture-phase pointer interceptors in `index.html` and `touch-action: pan-y !important` rules, allowing smooth vertical list scrolling.
 
 ### 3. Viewport Declaration (`index.html`)
 Updated the viewport tag in `index.html`:
