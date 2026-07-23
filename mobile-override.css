@@ -210,13 +210,20 @@ div[class*="w-[72px]"] {
   }
 
   /* 7. Dropdown Menus, Popovers & Project Filter Modals float ABOVE the sidebar */
-  div[role="menu"],
-  div[role="dialog"],
   div[data-radix-popper-content-wrapper],
+  div[data-radix-menu-content],
+  div[data-radix-dropdown-menu-content],
+  div[role="menu"],
+  div[role="listbox"],
+  div[role="dialog"],
+  div[class*="w-44"],
+  div[class*="origin-top-left"],
   div[class*="z-[8000]"],
   div[class*="z-[9000]"],
   div[class*="z-[10000]"],
-  div[class*="origin-top-left"] {
+  div.z-50:has(div[role="menu"]),
+  div.z-50:has(div[class*="w-44"]),
+  body > div:has(div[class*="w-44"]) {
     z-index: 100005 !important;
   }
 
