@@ -87,35 +87,49 @@
   }
 
   /* 4. Full Horizontal Width for Mobile Sidebars & Navigation Panes */
-  /* Force split-pane parent wrapper of navigation sidebars to 100vw full screen width */
-  div:has(> div[role="navigation"]),
-  div:has(> nav[role="navigation"]),
-  div:has(> div[aria-label="Sidebar"]) {
-    width: 100vw !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    flex: 0 0 100vw !important;
-  }
-
-  /* Inner navigation sidebar elements fill 100vw */
+  /* On mobile viewports, position the navigation sidebar as a full-viewport overlay (100vw x 100dvh) */
   div[role="navigation"],
   nav[role="navigation"],
-  div[aria-label="Sidebar"],
+  div[aria-label="Sidebar"] {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-width: 100vw !important;
+    min-height: 100dvh !important;
+    max-width: 100vw !important;
+    max-height: 100dvh !important;
+    z-index: 9999 !important;
+    margin: 0 !important;
+    padding-top: var(--safe-top, 0px) !important;
+    padding-bottom: calc(var(--safe-bottom, 0px) + 8px) !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    background-color: var(--sidebar, #151515) !important;
+    transform: none !important;
+  }
+
+  /* Target drawer overlays */
   .bg-sidebar.z-50,
   div[class*="w-[240px]"][class*="bg-sidebar"],
   div[class*="slide-in-from-left"],
   div[class*="slide-in-from-right"] {
-    width: 100vw !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
+    position: fixed !important;
+    top: 0 !important;
     left: 0 !important;
     right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    z-index: 9999 !important;
+    padding-top: var(--safe-top, 0px) !important;
+    padding-bottom: calc(var(--safe-bottom, 0px) + 8px) !important;
     box-sizing: border-box !important;
-  }
-
-  /* When the navigation sidebar is open (visible), hide adjacent split pane sibling (workspace) so sidebar fills entire screen */
-  div:has(> div[role="navigation"]:not([style*="visibility: hidden"])):not([style*="visibility: hidden"]):not([style*="width: 0px"]):not([style*="display: none"]) ~ div {
-    display: none !important;
   }
 
   /* Full width for auxiliary panels & settings navigation */
@@ -132,7 +146,7 @@
   div[class*="resizer"],
   div[class*="cursor-col-resize"],
   div[class*="cursor-row-resize"],
-  div:has(> div[role="navigation"]) + div[class*="bg-border"] {
+  div[class*="bg-border"][class*="z-30"] {
     display: none !important;
     pointer-events: none !important;
   }
