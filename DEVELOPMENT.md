@@ -35,7 +35,7 @@ The server will log its active dynamic discovery parameters upon startup:
 Antigravity Extracted React Web App running live at:
 http://localhost:3333
 Dynamic Language Server Port: 46371
-Dynamic CSRF Token: d39758a1-c369-4ec4-839e-439f58d2afdc
+Dynamic CSRF Token: <DYNAMIC_CSRF_TOKEN>
 =======================================================
 ```
 
@@ -51,7 +51,7 @@ When the desktop Antigravity engine runs, it launches `language_server` with dyn
   --override_ide_name antigravity \
   --subclient_type hub \
   --https_server_port 0 \
-  --csrf_token d39758a1-c369-4ec4-839e-439f58d2afdc
+  --csrf_token <DYNAMIC_CSRF_TOKEN>
 ```
 
 In `server.js`, `discoverLanguageServerConfig()` executes:

@@ -24,7 +24,7 @@ POST /exa.language_server_pb.LanguageServerService/GetLocalUserInfo HTTP/1.1
 Host: 127.0.0.1:46371
 Content-Type: application/json
 Connect-Protocol-Version: 1
-x-codeium-csrf-token: d39758a1-c369-4ec4-839e-439f58d2afdc
+x-codeium-csrf-token: <DYNAMIC_CSRF_TOKEN>
 Origin: https://127.0.0.1:46371
 ```
 

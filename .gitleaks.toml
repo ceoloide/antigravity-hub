@@ -1,0 +1,14 @@
+# Gitleaks Configuration for Antigravity Hub
+
+title = "Gitleaks config"
+
+[allowlist]
+description = "Allowlist for non-secret static tokens and public SVG inline definitions"
+regexes = [
+  '''uuid-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}''',
+]
+paths = [
+  '''icons_cache/.*''',
+  '''compiled_tailwind.css''',
+  '''jetbox.css'''
+]
