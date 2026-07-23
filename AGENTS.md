@@ -28,11 +28,14 @@ This document provides explicit guidelines, rules, and operational boundaries fo
 ### 5. Git Commit & Continuous Integration Rule
 - **Commit changes as you go**. Whenever a feature, fix, or optimization step is verified successfully via the verification pipeline, stage and commit the changes immediately before proceeding to subsequent tasks or declaring completion.
 
+### 6. Mandatory Web Server Restart Rule
+- **Always restart the systemd web service (`sudo systemctl restart antigravity-react-web.service`) whenever changes are made to `index.html`, `mobile-override.css`, `server.js`, or static assets** so that updates take effect immediately in the running browser session.
+
 ---
 
 ## 🛠️ Verification & Testing Commands
 
-Whenever modifying `server.js`, `index.html`, or configuration parameters, execute the following verification pipeline before declaring completion:
+Whenever modifying `server.js`, `index.html`, `mobile-override.css`, or configuration parameters, execute the following verification pipeline before declaring completion:
 
 ```bash
 # 1. Verify Node proxy syntax & execution
