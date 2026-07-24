@@ -142,9 +142,25 @@ div[class*="w-[72px]"] {
   }
 
   /* 5. Mobile Navigation Sidebar — Apply full-width overlay (100vw) ONLY when explicitly OPEN */
-  /* Left sidebar parent overlay when explicitly OPEN (width is > 0px) */
-  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):has(> div > [role="navigation"]),
-  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):has(> [role="navigation"]) {
+  /* CLOSED STATE: When --sidebar-width is 0px or sidebar container width is 0px */
+  body:has(div[style*="--sidebar-width: 0px"]) div[role="navigation"],
+  body:has(div[style*="--sidebar-width:0px"]) div[role="navigation"],
+  div.flex[style*="width: 0px"] [role="navigation"],
+  div.flex[style*="width:0px"] [role="navigation"] {
+    position: static !important;
+    width: 0px !important;
+    height: 0px !important;
+    min-width: 0px !important;
+    max-width: 0px !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  /* OPEN STATE: When --sidebar-width is NOT 0px (sidebar is open) */
+  body:has(div[style*="--sidebar-width:"]):not(:has(div[style*="--sidebar-width: 0px"])):not(:has(div[style*="--sidebar-width:0px"])) div.flex:has(> div > [role="navigation"]),
+  body:has(div[style*="--sidebar-width:"]):not(:has(div[style*="--sidebar-width: 0px"])):not(:has(div[style*="--sidebar-width:0px"])) div.flex:has(> [role="navigation"]) {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -157,8 +173,7 @@ div[class*="w-[72px]"] {
     z-index: 99900 !important;
   }
 
-  /* Inner sidebar navigation menu fills 100vw ONLY when explicitly OPEN */
-  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]) [role="navigation"] {
+  body:has(div[style*="--sidebar-width:"]):not(:has(div[style*="--sidebar-width: 0px"])):not(:has(div[style*="--sidebar-width:0px"])) [role="navigation"] {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -182,22 +197,6 @@ div[class*="w-[72px]"] {
     visibility: visible !important;
     pointer-events: auto !important;
     opacity: 1 !important;
-  }
-
-  /* CLOSED STATE: When sidebar container width is 0px, collapse inner navigation so it does not block touches */
-  div.flex[style*="width: 0px"] [role="navigation"],
-  div.flex[style*="width:0px"] [role="navigation"],
-  div.flex[style*="width: 0px"] :has(> [role="navigation"]),
-  div.flex[style*="width:0px"] :has(> [role="navigation"]) {
-    position: static !important;
-    width: 0px !important;
-    height: 0px !important;
-    min-width: 0px !important;
-    max-width: 0px !important;
-    pointer-events: none !important;
-    z-index: -1 !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
   }
 
   /* 6. Completely Hide / Suppress All Tooltips on Mobile */
@@ -273,9 +272,23 @@ div[class*="w-[72px]"] {
     -webkit-user-select: none !important;
   }
 
-  /* 8. Mobile Right Sidebar (Auxiliary Pane) — Full-Width Overlay (100vw x 100dvh) */
-  /* Target the right split-pane parent container when explicitly OPEN (has width > 0) */
-  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]):has(> div.relative.flex-1.flex.min-w-0.h-full) {
+  /* 8. Mobile Right Side Panel (Auxiliary Pane) — Full-Width Overlay (100vw x 100dvh) */
+  /* CLOSED STATE: When --aux-pane-width is 0px */
+  body:has(div[style*="--aux-pane-width: 0px"]) div.relative.flex-1.flex.min-w-0.h-full,
+  body:has(div[style*="--aux-pane-width:0px"]) div.relative.flex-1.flex.min-w-0.h-full,
+  div.flex[style*="width: 0px"] > div.relative.flex-1.flex.min-w-0.h-full,
+  div.flex[style*="width:0px"] > div.relative.flex-1.flex.min-w-0.h-full {
+    position: static !important;
+    width: 0px !important;
+    height: 0px !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  /* OPEN STATE: When --aux-pane-width is NOT 0px */
+  body:has(div[style*="--aux-pane-width:"]):not(:has(div[style*="--aux-pane-width: 0px"])):not(:has(div[style*="--aux-pane-width:0px"])) div:has(> div.relative.flex-1.flex.min-w-0.h-full) {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -289,8 +302,7 @@ div[class*="w-[72px]"] {
     background-color: var(--background, #0d0e11) !important;
   }
 
-  /* Inner right sidebar content fills 100vw when open */
-  div.flex:not([style*="width: 0px"]):not([style*="width:0px"]) > div.relative.flex-1.flex.min-w-0.h-full {
+  body:has(div[style*="--aux-pane-width:"]):not(:has(div[style*="--aux-pane-width: 0px"])):not(:has(div[style*="--aux-pane-width:0px"])) div.relative.flex-1.flex.min-w-0.h-full {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -314,20 +326,6 @@ div[class*="w-[72px]"] {
     visibility: visible !important;
     pointer-events: auto !important;
     opacity: 1 !important;
-  }
-
-  /* CLOSED STATE: When right sidebar container width is 0px, collapse inner container */
-  div.flex[style*="width: 0px"] :has(> div.relative.flex-1.flex.min-w-0.h-full),
-  div.flex[style*="width:0px"] :has(> div.relative.flex-1.flex.min-w-0.h-full) {
-    position: static !important;
-    width: 0px !important;
-    height: 0px !important;
-    min-width: 0px !important;
-    max-width: 0px !important;
-    pointer-events: none !important;
-    z-index: -1 !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
   }
 
   /* Right Sidebar Toggle Button (`dock_to_left` icon) stays floating on top */
