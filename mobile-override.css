@@ -210,21 +210,37 @@ div[class*="w-[72px]"] {
   }
 
   /* 7. Dropdown Menus, Popovers & Project Filter Modals float ABOVE the sidebar */
+  body > div[data-radix-popper-content-wrapper],
   div[data-radix-popper-content-wrapper],
   div[data-radix-menu-content],
   div[data-radix-dropdown-menu-content],
   div[role="menu"],
   div[role="listbox"],
   div[role="dialog"],
+  div[data-state="open"],
   div[class*="w-44"],
+  div[class*="w-[210px]"],
   div[class*="origin-top-left"],
+  div[class*="bg-secondary"][class*="shadow"],
+  div[class*="bg-popover"],
+  div[class*="bg-card"][class*="border"],
   div[class*="z-[8000]"],
   div[class*="z-[9000]"],
   div[class*="z-[10000]"],
   div.z-50:has(div[role="menu"]),
   div.z-50:has(div[class*="w-44"]),
-  body > div:has(div[class*="w-44"]) {
+  body > div:has(div[class*="w-44"]),
+  body > div:has(div[role="menu"]) {
     z-index: 100005 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Inner menu items in project filter menu must be interactive and visible */
+  div[role="menu"] *,
+  div[data-radix-popper-content-wrapper] * {
+    pointer-events: auto !important;
   }
 
   /* Disable column resizer handles on mobile */
