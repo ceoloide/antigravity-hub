@@ -220,7 +220,7 @@ div[class*="w-[72px]"] {
   div[role="menu"],
   div[role="listbox"],
   div[role="dialog"],
-  div[data-state="open"],
+  div[data-state="open"]:not(.flex),
   div[class*="w-44"],
   div[class*="w-[210px]"],
   div[class*="origin-top-left"],
@@ -238,6 +238,27 @@ div[class*="w-[72px]"] {
     pointer-events: auto !important;
     visibility: visible !important;
     opacity: 1 !important;
+  }
+
+  /* Clamp Radix Popper Wrappers on Mobile (<= 768px) so menus stay cleanly within viewport */
+  body > div[data-radix-popper-content-wrapper],
+  div[data-radix-popper-content-wrapper] {
+    left: 12px !important;
+    right: 12px !important;
+    max-width: calc(100vw - 24px) !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  div[data-radix-popper-content-wrapper] > div,
+  div[data-radix-menu-content],
+  div[data-radix-dropdown-menu-content],
+  div[role="menu"],
+  div[role="listbox"] {
+    max-width: 100% !important;
+    max-height: calc(100dvh - 64px) !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
   }
 
   /* Inner menu items in project filter menu must be interactive and visible */
